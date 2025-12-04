@@ -1,15 +1,27 @@
-from agent1 import create_agent
+from agent import create_agent
+from prompts import basic_prompt
 
-agent = create_agent()
+def main():
+    llm = create_agent()
+    print("Gemini Agent Ready!")
+    print("Type 'exit' to quit.\n")
 
-print("Gemini Agent Ready!")
-print("Type 'exit' to quit.\n")
+    while True:
+        user_input = input("You: ")
 
-while True:
-    query = input("You: ")
+        if user_input.lower() == "exit":
+            print("Goodbye!")
+            break
 
-    if query.lower() == "exit":
-        break
+        try:
+            
+            formatted = basic_prompt.format(topic=user_input)
+            response = llm.invoke(formatted)
 
-    response = agent.invoke({"input": query})
-    print("Agent:", response["output"])
+            print("Agent:", response, "\n")
+            print()
+        except Exception as e:
+            print("Error:", e)
+
+if __name__ == "__main__":
+    main()
