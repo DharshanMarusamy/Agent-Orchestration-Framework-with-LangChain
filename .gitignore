@@ -1,16 +1,24 @@
-# Python
+# -------------------------
+# Python cache files
+# -------------------------
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# Virtual environments
+# -------------------------
+# Virtual environment
+# -------------------------
 venv/
 .env
 
+# -------------------------
 # VS Code
+# -------------------------
 .vscode/
 
-# OS files
+# -------------------------
+# OS generated files
+# -------------------------
 .DS_Store
 Thumbs.db
