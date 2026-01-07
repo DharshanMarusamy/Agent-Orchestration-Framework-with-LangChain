@@ -1,0 +1,271 @@
+﻿:root {
+    /* Dark Theme Colors */
+    --bg-color: #0f1012;       
+    --card-bg: #1e1f22;        
+    --sidebar-bg: #2b2d31;     
+    
+    /* Text Colors */
+    --text-main: #ffffff;      
+    --text-muted: #949ba4;    
+    
+    /* Accents (Purple/Blue from your screenshot) */
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); 
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+    --border-color: #3f4147;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* --- HEADER --- */
+header {
+    text-align: center;
+    padding: 40px 0;
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin: 0;
+    font-weight: 700;
+    /* Gradient Text */
+    background: linear-gradient(to right, #fff, #949ba4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+/* Name Tag Style (Dark Pill) */
+.creator-tag {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: 20px;
+    color: #a855f7; 
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    font-weight: 500;
+}
+
+/* --- SEARCH BOX (Dark Input) --- */
+.search-container {
+    background: var(--card-bg);
+    padding: 8px;
+    border-radius: 60px;
+    display: flex;
+    box-shadow: var(--shadow);
+    max-width: 700px;
+    margin: 30px auto 50px auto;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border-color: #6366f1; 
+}
+
+input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 50px;
+    outline: none;
+    font-family: 'Outfit', sans-serif;
+    color: white;
+}
+
+input::placeholder {
+    color: #6b7280;
+}
+
+button {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 15px 45px;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+}
+
+button:hover {
+    filter: brightness(1.2);
+    transform: scale(1.02);
+}
+
+button:disabled {
+    background: #3f4147;
+    color: #949ba4;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* --- STATUS BAR --- */
+.status-bar {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--text-muted);
+    font-weight: 500;
+    height: 24px;
+}
+
+/* --- RESULTS GRID --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.grid.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- CARDS (Dark Cards) --- */
+.card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: #555;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #2b2d31;
+}
+
+/* Icons (Glowing Dark Mode Style) */
+.icon-box {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.icon-research { background: linear-gradient(135deg, #ec4899, #db2777); } 
+.icon-analyst { background: linear-gradient(135deg, #8b5cf6, #7c3aed); } 
+.icon-email { background: linear-gradient(135deg, #10b981, #059669); }   
+
+.card h3 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.content {
+    flex: 1;
+    color: #d1d5db; 
+    line-height: 1.7;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    background: #111214; 
+    padding: 20px;
+    border-radius: 12px;
+    max-height: 350px;
+    overflow-y: auto;
+    border: 1px solid #2b2d31;
+}
+
+/* Scrollbar for Dark Mode */
+.content::-webkit-scrollbar {
+    width: 8px;
+}
+.content::-webkit-scrollbar-track {
+    background: #111214;
+}
+.content::-webkit-scrollbar-thumb {
+    background: #3f4147;
+    border-radius: 4px;
+}
+.content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* --- EMAIL HIGHLIGHT (Dark Mode Special) --- */
+.email-card {
+    grid-column: 1 / -1;
+    border: 1px solid #8b5cf6;
+    background: linear-gradient(to bottom, #1e1f22, #262030); 
+}
+
+#emailOutput {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: #e2e8f0;
+    background: #0f1012;
+    border: 1px solid #3f4147;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.error-msg {
+    background: #450a0a; 
+    color: #fca5a5;       
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    display: none;
+    border: 1px solid #7f1d1d;
+}
