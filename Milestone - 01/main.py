@@ -18,7 +18,7 @@ def main():
             formatted = basic_prompt.format(topic=user_input)
             response = llm.invoke(formatted)
 
-            print("Agent:", response, "\n")
+            print("Agent:",  response.content, "\n")
             print()
         except Exception as e:
             print("Error:", e)
