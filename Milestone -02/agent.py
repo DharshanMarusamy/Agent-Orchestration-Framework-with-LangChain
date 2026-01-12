@@ -1,9 +1,12 @@
+import json
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import Tool, create_react_agent, AgentExecutor
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
+from langchain_core.tools import tool
+from langchain_core.output_parsers import StrOutputParser
 import os
 
+# Assuming tools.py exists with your definitions
 from tools import (
     mock_weather_api,
     dictionary_lookup,
@@ -14,54 +17,50 @@ load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
 llm = ChatGoogleGenerativeAI(
-    model="models/gemini-flash-lite-latest",
-    temperature=0.2,
-    api_key=api_key
+    model="gemini-2.5-flash",
+    api_key=api_key,
+    temperature=0.2
 )
 
-tools = [
-    Tool("weather_api", mock_weather_api, "Get weather information"),
-    Tool("dictionary", dictionary_lookup, "Get meaning of a word"),
-    Tool("currency_converter", currency_converter, "Convert currency")
-]
+# --- TOOL DEFINITIONS ---
+@tool
+def weather_api(city: str) -> str:
+    """Fetch weather for a city"""
+    return mock_weather_api(city)
+
+@tool
+def dictionary(word: str) -> str:
+    """Get meaning of a word"""
+    return dictionary_lookup(word)
+
+@tool
+def currency(value: str) -> str:
+    """Convert currency"""
+    return currency_converter(value)
+
+tools = [weather_api, dictionary, currency]
+
 
 prompt = PromptTemplate(
-    input_variables=["input", "tools", "tool_names", "agent_scratchpad"],
+    input_variables=["input"],
     template="""
-You are a helpful AI agent.
+You are an intelligent AI agent.
 
-TOOLS:
-{tools}
-Tool names: {tool_names}
+TOOLS AVAILABLE:
+- weather_api: for weather conditions
+- dictionary: for word definitions
+- currency: for currency conversion (format: '100 USD to INR')
 
 RULES:
-- Weather → weather_api
-- Word meaning → dictionary
-- Currency → currency_converter
-- NEVER create your own questions
-- NEVER loop
-- If a tool cannot answer, say so clearly
+1. If you can answer the user directly, do so.
+2. If you need a tool, output ONLY a JSON object in this format:
+   {{"tool": "tool_name", "input": "input_value"}}
 
-Question: {input}
-
-Thought: what do I need?
-Action: <tool name if needed>
-Action Input: <input>
-Observation: <tool result>
-Final Answer: <answer>
-
-{agent_scratchpad}
+User Input:
+{input}
 """
 )
 
-agent = create_react_agent(llm, tools, prompt)
-
-agent_executor = AgentExecutor(
-    agent=agent,
-    tools=tools,
-    verbose=True,
-    handle_parsing_errors=True
-)
-
 def get_agent():
-    return agent_executor
+    chain = prompt | llm | StrOutputParser()
+    return chain, tools
