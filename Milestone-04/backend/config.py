@@ -19,7 +19,7 @@ else:
         print(f"⚠️ Warning: API Key invalid. {e}")
 
 # Note: 'gemini-2.5-flash' does not exist yet. Using 'gemini-1.5-flash' for stability.
-MODEL_NAME = "gemini-1.5-flash"
+MODEL_NAME = "gemini-2.5-flash"
 
 def generate_with_retry(prompt):
     """
