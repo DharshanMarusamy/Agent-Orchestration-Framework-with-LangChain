@@ -31,8 +31,6 @@ The goal of Milestone-1 is to set up the basic environment, integrate the Gemini
   
 - ✔ Easy model switching in the agent setup
 
-## 🖼️ Output Screenshot
-(steps)
 
 ## 🤖 AI Response Example
 You: explain ai
