@@ -35,5 +35,5 @@ def trigger_workflow():
     return jsonify({"final_email": out3, "logs": logs})
 
 if __name__ == '__main__':
-    print("🚀 Backend running on http://127.0.0.1:5000")
-    app.run(debug=True, port=5000)
+    print("🚀 Backend running on http://0.0.0.0:5000")
+    app.run(host="0.0.0.0", port=5000, debug=False)
